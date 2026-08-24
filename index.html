@@ -13,19 +13,36 @@
             text-align: center;
         }
         header {
-            padding: 40px 20px;
-            background: #fff;
-            border-bottom: 1px solid #ddd;
+            position: relative;
+            padding: 80px 20px;
+            /* Utilisation de votre nouvelle image de fond */
+            background-image: url('pexels-daniloriba-10939645.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+        /* Voile sombre pour bien lire le texte par-dessus l'image */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+        }
+        header h1, header p, header nav {
+            position: relative;
+            z-index: 2;
         }
         h1 {
             margin-bottom: 10px;
+            font-size: 2.5em;
         }
         /* Style pour les onglets de navigation */
         nav {
             margin-top: 20px;
         }
         .nav-btn {
-            background-color: #e0e0e0;
+            background-color: rgba(255, 255, 255, 0.85);
             border: none;
             padding: 10px 20px;
             margin: 0 5px;
@@ -33,6 +50,7 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            color: #333;
         }
         .nav-btn:hover, .nav-btn.active {
             background-color: #0077cc;
@@ -89,13 +107,12 @@
         <div class="photo-card" data-category="macro">
             <img src="seastar1.jpeg" alt="Asteria Rubens">
             <div class="photo-info">Macro - Asteria Rubens</div>
-        </div> 
+        </div>  
 
          <div class="photo-card" data-category="macro">
             <img src="urchin2.jpeg" alt="Psammechinus miliaris">
             <div class="photo-info">Macro - Psammechinus miliaris</div>
-        </div> 
-        -->
+        </div>  
     </main>
 
     <script>
