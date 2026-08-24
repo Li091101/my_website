@@ -15,13 +15,12 @@
         header {
             position: relative;
             padding: 80px 20px;
-            /* Utilisation de votre nouvelle image de fond */
             background-image: url('pexels-daniloriba-10939645.jpg');
             background-size: cover;
             background-position: center;
             color: white;
         }
-        /* Voile sombre pour bien lire le texte par-dessus l'image */
+        /* Voile sombre pour l'en-tête */
         header::before {
             content: "";
             position: absolute;
@@ -75,11 +74,35 @@
             height: 250px;
             object-fit: cover;
             display: block;
+            cursor: pointer; /* Indique qu'on peut cliquer */
+            transition: transform 0.3s ease;
+        }
+        .photo-card img:hover {
+            transform: scale(1.03); /* Petit zoom léger au survol */
         }
         .photo-info {
             padding: 15px;
             font-size: 14px;
             color: #666;
+        }
+
+        /* Style pour la visionneuse plein écran (Lightbox) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
@@ -100,23 +123,28 @@
     <main class="galerie" id="gallery-container">
         <!-- Photo Marine (votre requin) -->
         <div class="photo-card" data-category="marine">
-            <img src="sharks1.jpg" alt="Carcharhinus melanopterus">
+            <img src="sharks1.jpg" alt="Carcharhinus melanopterus" onclick="openLightbox(this.src)">
             <div class="photo-info">Marine - Blacktip reef sharks</div>
         </div>
         
         <div class="photo-card" data-category="macro">
-            <img src="seastar1.jpeg" alt="Asteria Rubens">
+            <img src="seastar1.jpeg" alt="Asteria Rubens" onclick="openLightbox(this.src)">
             <div class="photo-info">Macro - Asteria Rubens</div>
         </div>  
 
-         <div class="photo-card" data-category="macro">
-            <img src="urchin2.jpeg" alt="Psammechinus miliaris">
+        <div class="photo-card" data-category="macro">
+            <img src="urchin2.jpeg" alt="Psammechinus miliaris" onclick="openLightbox(this.src)">
             <div class="photo-info">Macro - Psammechinus miliaris</div>
         </div>  
     </main>
 
+    <!-- Fenêtre modale (Lightbox) pour afficher l'image en grand -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Agrandissement">
+    </div>
+
     <script>
-        // Petit script magique pour faire fonctionner les onglets
+        // Fonction pour filtrer les photos par onglets
         function filterPhotos(category) {
             const cards = document.querySelectorAll('.photo-card');
             const buttons = document.querySelectorAll('.nav-btn');
@@ -131,6 +159,20 @@
                     card.style.display = 'none';
                 }
             });
+        }
+
+        // Fonction pour ouvrir l'image en grand
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.style.display = 'flex';
+        }
+
+        // Fonction pour fermer l'image en grand (au clic)
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
         }
     </script>
 
