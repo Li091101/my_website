@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +20,27 @@ HTML
         h1 {
             margin-bottom: 10px;
         }
+        /* Style pour les onglets de navigation */
+        nav {
+            margin-top: 20px;
+        }
+        .nav-btn {
+            background-color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background-color: #0077cc;
+            color: white;
+        }
         .galerie {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             padding: 40px;
             max-width: 1200px;
@@ -37,9 +54,13 @@ HTML
         }
         .photo-card img {
             width: 100%;
-            height: auto; 
-            /* Changement ici : on enlève object-fit pour ne pas rogner l'image */
+            height: auto;
             display: block;
+        }
+        .photo-info {
+            padding: 15px;
+            font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
@@ -48,14 +69,49 @@ HTML
     <header>
         <h1>My Photo Album</h1>
         <p>Welcome to my visual space.</p>
+        
+        <!-- Les onglets de navigation -->
+        <nav>
+            <button class="nav-btn active" onclick="filterPhotos('all')">All</button>
+            <button class="nav-btn" onclick="filterPhotos('marine')">Marine</button>
+            <button class="nav-btn" onclick="filterPhotos('macro')">Macro</button>
+        </nav>
     </header>
 
-    <main class="galerie">
-        <!-- Your shark photo -->
-        <div class="photo-card">
-    <img src="sharks1.jpg" alt="Carcharhinus melanopterus">
+    <main class="galerie" id="gallery-container">
+        <!-- Photo Marine (votre requin) -->
+        <div class="photo-card" data-category="marine">
+            <img src="sharks1.jpg" alt="Carcharhinus melanopterus">
+            <div class="photo-info">Marine - Blacktip reef sharks</div>
         </div>
+
+        <!-- Exemple d'une future photo Macro (vous la changerez plus tard) -->
+        <!-- 
+        <div class="photo-card" data-category="macro">
+            <img src="votre-photo-macro.jpg" alt="Macro shot">
+            <div class="photo-info">Macro - Details</div>
+        </div> 
+        -->
     </main>
+
+    <script>
+        // Petit script magique pour faire fonctionner les onglets
+        function filterPhotos(category) {
+            const cards = document.querySelectorAll('.photo-card');
+            const buttons = document.querySelectorAll('.nav-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
